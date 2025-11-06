@@ -2,11 +2,17 @@ package com.example.libraryapi.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +26,7 @@ import lombok.Data;
 @Entity
 @Table(name = "livro")
 @Data
+@EntityListeners(AuditingEntityListener.class)
 public class Livro {
 
 	
@@ -49,6 +56,17 @@ public class Livro {
 	//se for utilizar cascade, precisa disso -> (cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_autor")
 	private Autor autor;
+	
+	@CreatedDate
+	@Column(name = "data_cadastro")
+	private LocalDateTime dataCadastro;
+	
+	@LastModifiedDate
+	@Column(name = "data_atualizacao")
+	private LocalDateTime dataAtualizacao;
+	
+	@Column(name = "id_usuario")
+	private UUID idUsuario;
 
 	public Livro() {
 		// TODO Auto-generated constructor stub
@@ -104,6 +122,27 @@ public class Livro {
 
 	public void setAutor(Autor autor) {
 		this.autor = autor;
+	}
+	
+
+	public LocalDateTime getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(LocalDateTime dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
+	public LocalDateTime getDataAtualizacao() {
+		return dataAtualizacao;
+	}
+
+	public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
+		this.dataAtualizacao = dataAtualizacao;
+	}
+
+	public UUID getIdUsuario() {
+		return idUsuario;
 	}
 
 	@Override
