@@ -3,8 +3,6 @@ package com.example.libraryapi.controller.dto;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import com.example.libraryapi.model.Autor;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -25,13 +23,6 @@ public record AutorDTO(
 		@Size(max = 50, message = "Campo fora do tamanho permitido")
 		String nacionalidade) {
 	
-	public Autor mapearParaAutor() {
-		Autor autor = new Autor();
-		autor.setNome(this.nome);
-		autor.setDataNascimentoDate(this.dataNascimento);
-		autor.setNacionalidade(this.nacionalidade);
-		return autor;
-		
-	}
+	
 	
 }

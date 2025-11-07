@@ -14,7 +14,10 @@ import com.example.libraryapi.repository.AutorRepository;
 import com.example.libraryapi.repository.LivroRepository;
 import com.example.libraryapi.validator.AutorValidator;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class AutorService {
 
 	private final AutorRepository repository;
@@ -40,9 +43,9 @@ public class AutorService {
 		repository.save(autor);
 	}
 	
-	public Optional<Autor> obterPorId(UUID id){
-		return repository.findById(id);
-	}
+	 public Optional<Autor> obterPorId(UUID id){
+	        return repository.findById(id);
+	    }
 	
 	public void deletar(Autor autor) {
 		if(possuiLivro(autor)) {
