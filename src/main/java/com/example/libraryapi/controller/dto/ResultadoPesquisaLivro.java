@@ -10,7 +10,7 @@ public record ResultadoPesquisaLivro(
 		UUID id,
 		String sbn,
 		String titulo,
-		LocalDate dataPuplicacao,
+		LocalDate dataPublicacao,
 		GeneroLivro genero,
 		BigDecimal preco,
 		AutorDTO autor) {

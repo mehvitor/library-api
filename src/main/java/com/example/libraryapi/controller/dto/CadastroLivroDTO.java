@@ -22,7 +22,7 @@ public record CadastroLivroDTO(
 		
 		@NotNull(message = "Campo obrigatório!")
 		@Past(message = "Não pode ser uma futura da atual")
-		LocalDate dataPuplicacao,
+		LocalDate dataPublicacao,
 		
 		GeneroLivro genero,
 		BigDecimal preco,
