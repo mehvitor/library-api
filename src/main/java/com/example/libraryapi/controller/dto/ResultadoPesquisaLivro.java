@@ -8,7 +8,7 @@ import com.example.libraryapi.model.GeneroLivro;
 
 public record ResultadoPesquisaLivro(
 		UUID id,
-		String sbn,
+		String isbn,
 		String titulo,
 		LocalDate dataPublicacao,
 		GeneroLivro genero,

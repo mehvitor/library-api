@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -14,7 +15,7 @@ import com.example.libraryapi.model.Autor;
 import com.example.libraryapi.model.Livro;
 
 @Repository
-public interface LivroRepository extends JpaRepository<Livro, UUID> {
+public interface LivroRepository extends JpaRepository<Livro, UUID>, JpaSpecificationExecutor<Livro> {
 
 	List<Livro> findByAutor(Autor autor);
 	
@@ -34,5 +35,7 @@ public interface LivroRepository extends JpaRepository<Livro, UUID> {
 	@Transactional
 	@Query(" update Livro set dataPublicacao = ?1 ")
 	void updateDataPubli(LocalDate novaData);
+	
+	
  		
 }
