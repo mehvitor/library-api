@@ -19,4 +19,6 @@ public abstract class LivroMapper {
 	public abstract Livro toEntity(CadastroLivroDTO dto);
 
 	public abstract ResultadoPesquisaLivro toDTO(Livro livro);
+	
+	
 }

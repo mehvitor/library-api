@@ -145,22 +145,7 @@ public class Livro {
 		return idUsuario;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(autor, id);
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Livro other = (Livro) obj;
-		return Objects.equals(autor, other.autor) && Objects.equals(id, other.id);
-	}
 
 	@Override
 	public String toString() {

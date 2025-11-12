@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import com.example.libraryapi.model.GeneroLivro;
 import com.example.libraryapi.model.Livro;
 import com.example.libraryapi.repository.LivroRepository;
+import com.example.libraryapi.repository.specs.LivroSpecs;
+
+
 
 @Service
 public class LivroService {
@@ -34,8 +37,32 @@ public class LivroService {
 		repository.delete(livro);
 	}
 	
-	public List<Livro> pesquisa(String isbn, String nomeAutor, GeneroLivro generoLivro, Integer anoPublicacao){
-		Specification<Livro> specs = null;
-		return repository.findAll(specs);
+	public List<Livro> pesquisa(String isbn, String titulo ,String nomeAutor, GeneroLivro generoLivro, Integer anoPublicacao){
+		
+		Specification<Livro> specs = Specification.where((root, query, cb) -> cb.conjunction());
+		
+		if(isbn != null) {
+			specs = specs.and(LivroSpecs.isbnEqual(isbn));
+		}
+		
+		if(titulo != null) {
+			specs = specs.and(LivroSpecs.tituloLike(titulo));
+		}
+		
+		if(titulo != null) {
+			specs = specs.and(LivroSpecs.generoEqual(generoLivro));
+		}
+		
+		if(anoPublicacao != null) {
+			specs = specs.and(LivroSpecs.anoPublicacaoEqual(anoPublicacao));
+		}
+		
+		if(nomeAutor != null) {
+			specs = specs.and(LivroSpecs.nomeAutorLike(nomeAutor));
+		}
+		
+		return repository.findAll(LivroSpecs.isbnEqual(isbn));
+		
+		
 	}
 }
