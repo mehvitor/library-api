@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.example.libraryapi.controller.dto.ErroCampo;
 import com.example.libraryapi.controller.dto.ErroResposta;
+import com.example.libraryapi.exception.CampoInvalidoException;
 import com.example.libraryapi.exception.OperacaoNaoPermitidaException;
 import com.example.libraryapi.exception.RegistroDuplicadoException;
 
@@ -44,6 +45,16 @@ public class GlobalExceptionHandler  {
 		return ErroResposta.respostaPadrao(e.getMessage());
 		
 	}  
+	
+	@ExceptionHandler(CampoInvalidoException.class)
+	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+	public ErroResposta handleCampoInvalidoException(CampoInvalidoException e) {
+		return new ErroResposta(
+				HttpStatus.UNPROCESSABLE_ENTITY.value(), "Erro de validação",
+				List.of(new ErroCampo(e.getCampo(), e.getMessage())));
+	}
+	
+	
 	
 	@ExceptionHandler(RuntimeException.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
