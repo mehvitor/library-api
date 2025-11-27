@@ -64,8 +64,9 @@ public class Livro {
 	@Column(name = "data_atualizacao")
 	private LocalDateTime dataAtualizacao;
 	
-	@Column(name = "id_usuario")
-	private UUID idUsuario;
+	@ManyToOne
+	@JoinColumn(name = "id_usuario")
+	private Usuario usuario;;
 
 	public Livro() {
 		// TODO Auto-generated constructor stub
@@ -140,11 +141,18 @@ public class Livro {
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
-	public UUID getIdUsuario() {
-		return idUsuario;
+
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
+	public void setId(UUID id) {
+		this.id = id;
+	}
 
 	@Override
 	public String toString() {

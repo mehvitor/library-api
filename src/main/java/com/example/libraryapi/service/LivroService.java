@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 
 import com.example.libraryapi.model.GeneroLivro;
 import com.example.libraryapi.model.Livro;
+import com.example.libraryapi.model.Usuario;
 import com.example.libraryapi.repository.LivroRepository;
 import com.example.libraryapi.repository.specs.LivroSpecs;
+import com.example.libraryapi.security.SecurityService;
 import com.example.libraryapi.validator.LivroValidator;
 
 
@@ -22,15 +24,19 @@ public class LivroService {
 
 	private final LivroRepository repository;
 	private final LivroValidator validator;
+	private final SecurityService securityService;
 
-	public LivroService(LivroRepository repository, LivroValidator validator) {
+	public LivroService(LivroRepository repository, LivroValidator validator, SecurityService securityService) {
 		super();
 		this.repository = repository;
-		this.validator = validator;;
+		this.validator = validator;
+		this.securityService = securityService;
 	}
 
 	public Livro salvar(Livro livro) {
 		validator.validar(livro);
+		Usuario usuario = securityService.obterUsuarioLogado();
+		livro.setUsuario(usuario);
 		return repository.save(livro);
 		
 	}

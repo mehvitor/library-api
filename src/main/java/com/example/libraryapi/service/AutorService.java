@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.example.libraryapi.exception.OperacaoNaoPermitidaException;
 import com.example.libraryapi.model.Autor;
+import com.example.libraryapi.model.Usuario;
 import com.example.libraryapi.repository.AutorRepository;
 import com.example.libraryapi.repository.LivroRepository;
+import com.example.libraryapi.security.SecurityService;
 import com.example.libraryapi.validator.AutorValidator;
 
 import lombok.RequiredArgsConstructor;
@@ -23,15 +25,24 @@ public class AutorService {
 	private final AutorRepository repository;
 	private final AutorValidator validator;
 	private final LivroRepository livroRepository;
+	private final SecurityService securityService;
 	
-	public AutorService(AutorRepository repository,AutorValidator validator, LivroRepository livroRepository) {
+	
+	
+	public AutorService(AutorRepository repository, AutorValidator validator, LivroRepository livroRepository,
+			SecurityService securityService) {
+		super();
 		this.repository = repository;
 		this.validator = validator;
 		this.livroRepository = livroRepository;
+		this.securityService = securityService;
 	}
-	
+
 	public Autor salvar(Autor autor) {
 		validator.validar(autor);
+		Usuario usuario = securityService.obterUsuarioLogado();
+		autor.setUsuario(usuario);
+		
 		return repository.save(autor);
 	}
 	
