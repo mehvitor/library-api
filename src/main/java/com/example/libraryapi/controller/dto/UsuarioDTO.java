@@ -2,6 +2,21 @@ package com.example.libraryapi.controller.dto;
 
 import java.util.List;
 
-public record UsuarioDTO(String login, String senha, List<String> roles) {
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
+public record UsuarioDTO(
+		
+		@NotBlank(message = "Campo Obrigatório")
+		String login, 
+		
+		@Email(message = "invalido")  
+		@NotBlank(message = "Campo Obrigatório")
+		String email, 
+		
+		@NotBlank(message = "Campo Obrigatório")
+		String senha,
+		
+		List<String> roles) {
 
 }

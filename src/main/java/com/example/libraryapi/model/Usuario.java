@@ -32,6 +32,9 @@ public class Usuario {
 	@Type(ListArrayType.class)
 	@Column(name = "roles", columnDefinition = "varchar[]")
 	private List<String> roles;
+	
+	@Column
+	private String email;
 
 	public UUID getId() {
 		return id;
@@ -64,6 +67,15 @@ public class Usuario {
 	public void setId(UUID id) {
 		this.id = id;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 	
 	
 	

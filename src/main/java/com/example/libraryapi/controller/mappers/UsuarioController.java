@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.libraryapi.controller.dto.UsuarioDTO;
 import com.example.libraryapi.service.UsuarioService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("usuarios")
 public class UsuarioController {
@@ -25,7 +27,7 @@ public class UsuarioController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public void salvar(@RequestBody UsuarioDTO dto) {
+	public void salvar(@RequestBody @Valid UsuarioDTO dto) {
 		var usuario = mapper.toEntity(dto);
 		service.salvar(usuario);
 	}
