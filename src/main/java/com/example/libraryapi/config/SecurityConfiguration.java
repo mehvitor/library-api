@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 
 import com.example.libraryapi.security.CustomUserDetailsService;
+import com.example.libraryapi.security.LoginSocialSuccessHandler;
 import com.example.libraryapi.service.UsuarioService;
 
 @Configuration
@@ -23,21 +24,24 @@ import com.example.libraryapi.service.UsuarioService;
 public class SecurityConfiguration {
 
 	@Bean
-	public DefaultSecurityFilterChain securityFilter(HttpSecurity http) throws Exception {
+	public DefaultSecurityFilterChain securityFilter(HttpSecurity http, LoginSocialSuccessHandler successHandler) throws Exception {
 		return http
 				.csrf(AbstractHttpConfigurer::disable)
 				.httpBasic(Customizer.withDefaults())
-//				.formLogin(configurer ->{
-//					configurer.loginPage("/login");
-//				})
-				.formLogin(Customizer.withDefaults())
+				.formLogin(configurer ->{
+				configurer.loginPage("/login");
+			})
 				.authorizeHttpRequests(authorize -> {
 					authorize.requestMatchers("/login/**").permitAll();
 					authorize.requestMatchers(HttpMethod.POST , "/usuarios").permitAll();
 					
 					authorize.anyRequest().authenticated();
 				})
-				.oauth2Login(Customizer.withDefaults())
+				.oauth2Login(oauth2 -> {
+					oauth2
+					.loginPage("/login")
+					.successHandler(successHandler);
+				})
 				.build();
 	}
 	
