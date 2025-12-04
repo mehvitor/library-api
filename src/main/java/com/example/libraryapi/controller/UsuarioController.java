@@ -1,4 +1,4 @@
-package com.example.libraryapi.controller.mappers;
+package com.example.libraryapi.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.libraryapi.controller.dto.UsuarioDTO;
+import com.example.libraryapi.controller.mappers.UsuarioMapper;
 import com.example.libraryapi.service.UsuarioService;
 
 import jakarta.validation.Valid;
