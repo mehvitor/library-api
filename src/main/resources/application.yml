@@ -1,6 +1,9 @@
 spring:
   application:
     name: libraryapi
+  output:
+    ansi:
+      enabled: ALWAYS		
 
   datasource:
     url: jdbc:postgresql://localhost:5432/librarydb
@@ -25,3 +28,6 @@ spring:
             scope:
               - email
               - profile
+
+springdoc:
+  override-with-generic-response: false

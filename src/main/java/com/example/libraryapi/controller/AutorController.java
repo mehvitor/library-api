@@ -24,10 +24,15 @@ import com.example.libraryapi.model.Autor;
 import com.example.libraryapi.security.SecurityService;
 import com.example.libraryapi.service.AutorService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/autores")
+@Tag(name = "Autores")
 public class AutorController implements GenericController{
 
 	private final AutorService service;
@@ -46,6 +51,12 @@ public class AutorController implements GenericController{
 
 	@PostMapping
 	@PreAuthorize("hasRole('GERENTE')")
+	@Operation(summary = "Salvar", description = "Cadastrar novo autor")
+	@ApiResponses({
+		@ApiResponse(responseCode = "201", description = "Cadastrado com sucesso."),
+		@ApiResponse(responseCode = "422", description = "Erro de validação."),
+		@ApiResponse(responseCode = "409", description = "Autor ja cadastrado.")
+	})
 	public ResponseEntity<Void> salvar(@RequestBody @Valid AutorDTO dto) {
 		Autor autor = mapper.toEntity(dto);
 		service.salvar(autor);
